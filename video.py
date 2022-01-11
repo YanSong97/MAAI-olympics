@@ -34,12 +34,12 @@ class VideoRecorder(object):
         frame = cv2.resize(frame, (640, 640))
 
 
-        img = cv2.cvtColor(frame,cv2.COLOR_RGB2BGR)
+        # img = cv2.cvtColor(frame,cv2.COLOR_RGB2BGR)
 
         # self.video.write(img)        #把图片写进视频
         # if CMG.step == len(CMG.gameAnswer)+1: #结束时：释放video，视频就做好了
         #     CMG.video.release() #释放
-        self.frames.append(img)
+        self.frames.append(frame)
 
     def save(self):
 
