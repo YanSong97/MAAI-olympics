@@ -15,8 +15,8 @@ from pathlib import Path
 CURRENT_PATH = str(Path(__file__).resolve().parent)
 sys.path.append(CURRENT_PATH)
 
-from olympics.viewer import Viewer, debug
-from olympics.video import VideoRecorder
+from viewer import Viewer, debug
+from video import VideoRecorder
 #from olympics.utils import *
 
 #from generator import create_scenario
