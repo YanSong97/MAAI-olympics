@@ -6,7 +6,8 @@ class Running(OlympicsBase):
         super(Running, self).__init__(map, seed)
 
         self.gamma = 1  # v衰减系数
-        self.restitution = 0.5
+        self.wall_restitution = 0.5
+        self.ball_restitution = 1
         self.print_log = False
         self.print_log2 = False
         self.tau = 0.1

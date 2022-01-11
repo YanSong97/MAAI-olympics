@@ -153,7 +153,8 @@ class OlympicsBase(object):
         # env hyper
         self.tau = 0.1  # delta t
         self.gamma = 0.98  # v衰减系数
-        self.restitution = 0.8
+        self.wall_restitution = 0.8
+        self.ball_restitution = 1
 
         self.step_cnt = 0
         self.done = False
@@ -375,7 +376,7 @@ class OlympicsBase(object):
         u2_x = v2[0] + 2*(m1/(m1+m2)) * b * n_x
         u2_y = v2[1] + 2*(m1/(m1+m2)) * b * n_y
 
-        return [u1_x*self.restitution, u1_y*self.restitution], [u2_x*self.restitution, u2_y*self.restitution]
+        return [u1_x*self.ball_restitution, u1_y*self.ball_restitution], [u2_x*self.ball_restitution, u2_y*self.ball_restitution]
 
 
     def CCD_circle_collision(self, old_pos1, old_pos2, old_v1, old_v2, r1, r2, m1, m2, return_t):
@@ -473,7 +474,7 @@ class OlympicsBase(object):
         object = self.map['objects'][target_idx]
 
         #t, v_col = object.collision_time(pos, v, r, compute_response = True, response_col_t = t,restitution = self.restitution)
-        col_pos, col_v = object.collision_response(pos, v, r, col_target, t, self.restitution)
+        col_pos, col_v = object.collision_response(pos, v, r, col_target, t, self.wall_restitution)
 
         return col_pos, col_v
 
