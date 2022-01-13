@@ -74,9 +74,10 @@ class Running(OlympicsBase):
         self.change_inner_state()
 
         self.render()
-        self.monitor.record(self.viewer)
+        if self.Recording:
+            self.monitor.record(self.viewer)
 
-        if done:
+        if done and self.Recording:
             self.monitor.save()
 
         return obs_next, step_reward, done, ''

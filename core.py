@@ -179,6 +179,7 @@ class OlympicsBase(object):
         #self.is_render = True
         self.display_mode = False
 
+        self.Recording = True
 
         def make_dir(*path_parts):
             dir_path = os.path.join(*path_parts)
@@ -186,8 +187,9 @@ class OlympicsBase(object):
                 os.mkdir(dir_path)
             except OSError:
                 pass
-        make_dir("./video")
-        self.base_dir = os.path.join(os.getcwd(), "video")
+        if self.Recording:
+            make_dir("./video")
+            self.base_dir = os.path.join(os.getcwd(), "video")
 
 
         self.reset()
@@ -305,13 +307,13 @@ class OlympicsBase(object):
         self.viewer = Viewer(self.view_setting)
         self.display_mode=False
 
-        self.monitor = VideoRecorder(self.base_dir)
-        self.monitor.init()
-
         obs = self.get_obs()
         self.render()
 
-        self.monitor.record(self.viewer)
+        if self.Recording:
+            self.monitor = VideoRecorder(self.base_dir)
+            self.monitor.init()
+            self.monitor.record(self.viewer)
 
         return obs
 
@@ -1212,12 +1214,12 @@ class OlympicsBase(object):
         if info is not None:
             debug(info, x=100)
 
-
-        # for event in pygame.event.get():
-        #     # 如果单击关闭窗口，则退出
-        #     if event.type == pygame.QUIT:
-        #         sys.exit()
-        # pygame.display.flip()
+        if not self.Recording:
+            for event in pygame.event.get():
+                # 如果单击关闭窗口，则退出
+                if event.type == pygame.QUIT:
+                    sys.exit()
+            pygame.display.flip()
         #self.viewer.background.fill((255, 255, 255))
 
     def get_trajectory(self):
