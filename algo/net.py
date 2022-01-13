@@ -11,8 +11,7 @@ class Actor(nn.Module):
         self.action_head = nn.Linear(hidden_size, action_space)
 
     def forward(self, x):
-        if self.is_cnn:
-            x = self.encoder(x)
+
         x = F.relu(self.linear_in(x))
         action_prob = F.softmax(self.action_head(x), dim=1)
         return action_prob
@@ -25,8 +24,7 @@ class Critic(nn.Module):
         self.state_value = nn.Linear(hidden_size, 1)
 
     def forward(self, x):
-        if self.is_cnn:
-            x = self.encoder(x)
+
         x = F.relu(self.linear_in(x))
         value = self.state_value(x)
         return value
