@@ -12,6 +12,7 @@ sys.path.append(str(os.path.dirname(father_path)))
 from algo.net import Actor, Critic
 from torch.utils.tensorboard import SummaryWriter
 import datetime
+import numpy as np
 
 class Args:
     clip_param = 0.2
@@ -84,7 +85,7 @@ class PPO:
         self.counter += 1
 
     def update(self, i_ep):
-        state = torch.tensor([t.state for t in self.buffer], dtype=torch.float).to(device)
+        state = torch.tensor(np.array([t.state for t in self.buffer]), dtype=torch.float).to(device)
         action = torch.tensor([t.action for t in self.buffer], dtype=torch.long).view(-1, 1).to(device)
         reward = [t.reward for t in self.buffer]
         # update: don't need next_state

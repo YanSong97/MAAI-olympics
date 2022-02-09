@@ -52,8 +52,6 @@ if __name__ == "__main__":
         game.map_num =ind
 
         obs = game.reset()
-        if RENDER:
-            game.render()
 
         done = False
         step = 0
